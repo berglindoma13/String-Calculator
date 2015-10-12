@@ -29,4 +29,9 @@ public class CalculatorTest {
 	public void testMultipleNumbers(){
 		assertEquals(5, Calculator.add("1,2,2"));
 	}
+
+	@Test 
+	public void testWithWhitespace(){
+		assertEquals(5, Calculator.add("1\n2,2"));
+	}
 }
