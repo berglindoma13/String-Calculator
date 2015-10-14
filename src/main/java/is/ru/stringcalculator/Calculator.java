@@ -1,15 +1,35 @@
 package is.ru.stringcalculator;
 
+
 public class Calculator {
+
+	public static String DELIMINATORS = "[,\n]";
 
 	public static int add(String text){
 		if(text.equals(""))
 		{
 			return 0;
 		}
-		else if(text.contains(",") | text.contains("\n"))
+		else if(text.startsWith("//"))
 		{
-			
+			String[] temp = text.split("//", 2);
+			String rest = temp[1];
+
+			temp = splitNumbers(rest);
+			String addedDelim = temp[0];
+
+			rest = temp[1];
+			temp = rest.split(addedDelim);
+
+			int results = sum(temp);
+			return results;
+		}
+		else if(text.contains(","))
+		{
+			return sum(splitNumbers(text));
+		}
+		else if (text.contains("\n"))
+		{
 			return sum(splitNumbers(text));
 		}
 		return 1;
@@ -20,7 +40,7 @@ public class Calculator {
 	}
 
 	private static String[] splitNumbers(String numbers){
-		return numbers.split("[,\n]");
+		return numbers.split(DELIMINATORS);
 	}
 
 	private static int sum(String[] numbers){
