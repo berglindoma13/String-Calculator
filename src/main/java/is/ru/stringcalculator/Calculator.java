@@ -20,17 +20,35 @@ public class Calculator {
 					temp = splitNumbers(rest);
 					rest = temp[1];
 
-					temp = temp[0].split("]");
-
-					temp = temp[0].split("");
-
-					String newdelim = "";
-					for(int i = 1; i < temp.length; i++)
-					{
-						newdelim += "\\" + temp[i];
-					}
+					temp = temp[0].split("]", 2);
+					String check = temp[1];
 					
-					temp = rest.split(newdelim);
+					if(check.contains("]"))
+					{
+						String[] temp2 = {};
+						String multipledeliminators = "[";
+						while(check.contains("]"))
+						{
+							temp2 = check.split("]");
+							temp2 = temp2[0].split("");
+							multipledeliminators += "\\" + temp2[1];
+							check = temp2[1];
+						}
+						multipledeliminators += "]";
+						temp = rest.split(multipledeliminators);
+					}
+
+					else 
+					{	
+						temp = temp[0].split("");
+						String newdelim = "";
+						for(int i = 1; i < temp.length; i++)
+						{
+							newdelim += "\\" + temp[i];
+						}
+
+						temp = rest.split(newdelim);					
+					}
 				}
 				else
 				{
