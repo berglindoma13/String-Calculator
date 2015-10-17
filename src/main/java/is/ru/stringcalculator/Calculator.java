@@ -6,30 +6,51 @@ public class Calculator {
 	public static String DELIMINATORS = "[,\n]";
 
 	public static int add(String text){
-		if(text.equals(""))
-		{
-			return 0;
-		}
-		else if(text.startsWith("//"))
-		{
-			String[] temp = text.split("//", 2);
-			String rest = temp[1];
+			if(text.equals(""))
+			{
+				return 0;
+			}
+			else if(text.startsWith("//"))
+			{
+				String[] temp = text.split("//", 2);
+				String rest = temp[1];
 
-			temp = splitNumbers(rest);
-			String addedDelim = temp[0];
+				if(rest.startsWith("["))
+				{
+					temp = splitNumbers(rest);
+					rest = temp[1];
 
-			rest = temp[1];
-			temp = rest.split(addedDelim);
+					temp = temp[0].split("]");
 
-			int results = sum(temp);
-			return results;
+					temp = temp[0].split("");
+
+					String newdelim = "";
+					for(int i = 1; i < temp.length; i++)
+					{
+						newdelim += "\\" + temp[i];
+					}
+					
+					temp = rest.split(newdelim);
+				}
+				else
+				{
+					temp = splitNumbers(rest);
+					String addedDelim = temp[0];
+					rest = temp[1];
+					temp = rest.split(addedDelim);	
+				}
+
+				int results = sum(temp);
+				return results;
+			}
+			else if(text.contains(",") || text.contains("\n"))
+			{
+				return sum(splitNumbers(text));
+			}
+			return 1;
 		}
-		else if(text.contains(",") || text.contains("\n"))
-		{
-			return sum(splitNumbers(text));
-		}
-		return 1;
-	}
+
+
 
 	private static int toInt(String number){
 		return Integer.parseInt(number);

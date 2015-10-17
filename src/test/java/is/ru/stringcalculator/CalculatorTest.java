@@ -52,4 +52,10 @@ public class CalculatorTest {
 	{
 		assertEquals(6, Calculator.add("1000,2,4"));
 	}
+
+	@Test
+	public void anyLengthCustomDeliminator()
+	{
+		assertEquals(6, Calculator.add("//[***]\n1***2***3"));
+	}
 }
