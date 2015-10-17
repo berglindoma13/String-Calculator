@@ -43,13 +43,14 @@ public class Calculator {
 		int total = 0;
 		String neg = "";
 		int i = 0;
+		int max = 1000;
 		for(String number : numbers){
 			if(number.contains("-"))
 			{
 				neg += " , " + number;
 				i++;
 			}
-			else
+			else if(max > toInt(number))
 			{
 				total += toInt(number);	
 			}

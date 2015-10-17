@@ -46,4 +46,10 @@ public class CalculatorTest {
 	{
 		Calculator.add("-1,2,3");
 	}
+
+	@Test
+	public void noLargerThanOneThousand()
+	{
+		assertEquals(6, Calculator.add("1000,2,4"));
+	}
 }
