@@ -1,7 +1,7 @@
 package is.ru.stringcalculator;
 
-
 public class Calculator {
+
 
 	public static String DELIMINATORS = "[,\n]";
 
@@ -24,11 +24,7 @@ public class Calculator {
 			int results = sum(temp);
 			return results;
 		}
-		else if(text.contains(","))
-		{
-			return sum(splitNumbers(text));
-		}
-		else if (text.contains("\n"))
+		else if(text.contains(",") || text.contains("\n"))
 		{
 			return sum(splitNumbers(text));
 		}
@@ -45,8 +41,23 @@ public class Calculator {
 
 	private static int sum(String[] numbers){
 		int total = 0;
+		String neg = "";
+		int i = 0;
 		for(String number : numbers){
-			total += toInt(number);
+			if(number.contains("-"))
+			{
+				neg += " , " + number;
+				i++;
+			}
+			else
+			{
+				total += toInt(number);	
+			}
+		}
+
+		if(i > 0)
+		{
+			throw new IllegalArgumentException("Negatives not allowed" + neg);
 		}
 		return total;
 	}
